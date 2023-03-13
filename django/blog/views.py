@@ -4,7 +4,6 @@ from .models import Post
 # Create your views here.
 
 # codes for creating list of posts
-
 def index(request):
     posts = Post.objects.all()
 
@@ -16,7 +15,6 @@ def index(request):
                 }
             )
 
-
 def single_post_page(request, pk):
     post = Post.objects.get(pk = pk)
 
@@ -27,3 +25,7 @@ def single_post_page(request, pk):
                 'post': post,
                 }
             )
+
+def post_view(request):
+    posts = Post.objects.all() # Save every object of Post table into posts variable
+    return render(request, 'blog/index.html', {"posts": posts})

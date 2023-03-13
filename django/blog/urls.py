@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 # codes for creating list of posts
 """
 urlpatterns = [
