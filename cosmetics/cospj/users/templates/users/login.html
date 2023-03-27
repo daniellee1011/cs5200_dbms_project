@@ -2,16 +2,15 @@ login page
 
 <br>
 {% if user.is_authenticated %}
-logged in successfully!
-Welcome {{ user.username }} 
+    logged in successfully!
+    Welcome {{ user.username }} 
+    <a href = "{% url 'user:logout' %}"> logout </a>
 {% else %}
-
-
-<form action = "" method = "POST">
-    {% csrf_token %}
-    <input name = "username" type = "text">
-    <input name = "password" type = "password">
-    <input type = "submit" value = "login">
-</form>
+    <form action = "" method = "POST">
+        {% csrf_token %}
+        <input name = "username" type = "text">
+        <input name = "password" type = "password">
+        <input type = "submit" value = "login">
+    </form>
 
 {% endif %}
