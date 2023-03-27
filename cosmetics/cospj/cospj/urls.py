@@ -21,5 +21,7 @@ import cosapp.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', cosapp.views.home, name='home'),
-    path('auth/', include("users.urls"))
+    path('auth/', include("users.urls")),
+    path('review/<int:id>', cosapp.views.addReview, name='review'),
+    path('addproduct/', cosapp.views.addProduct, name='addProduct')
 ]
