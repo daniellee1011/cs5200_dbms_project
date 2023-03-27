@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
 import cosapp.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', cosapp.views.home, name='home')
+    path('', cosapp.views.home, name='home'),
+    path('review/<int:id>', cosapp.views.addReview, name='review'),
+    path('addproduct/', cosapp.views.addProduct, name='addProduct')
 ]
