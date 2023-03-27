@@ -1,0 +1,19 @@
+Sign up page
+<br>
+
+<form action = "" method = "POST">
+    {% csrf_token %}
+    <p> username </p>
+    <input name = "username" type = "text">
+    <p> password </p>
+    <input name = "password" type = "password">
+    <p> firstname </p>
+    <input name = "firstname" type = "text">
+    <p> lastname </p>
+    <input name = "lastname" type = "text">
+    <p> email </p>
+    <input name = "email" type = "text">
+    <p> user_id </p>
+    <input name = "user_id" type = "text">
+    <input type = "submit" value = "sign up">
+</form>

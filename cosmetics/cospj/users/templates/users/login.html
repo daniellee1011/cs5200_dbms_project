@@ -3,7 +3,7 @@ login page
 <br>
 {% if user.is_authenticated %}
     logged in successfully!
-    Welcome {{ user.username }} 
+    Welcome {{ user.username }}
     <a href = "{% url 'user:logout' %}"> logout </a>
 {% else %}
     <form action = "" method = "POST">
@@ -12,5 +12,7 @@ login page
         <input name = "password" type = "password">
         <input type = "submit" value = "login">
     </form>
+    
+    <a href = "{% url 'user:signup' %}"> Sign up </a>
 
 {% endif %}
