@@ -53,11 +53,15 @@ def productDetail(request, id):
     reviews = UserReview.objects.filter(product = id)
 
     return render(request, "productdetail.html", context = {"product":product, "reviews":reviews})
+
+def productdetail_name(request, name):
+    product = Product.objects.get(name=name)
+    return render(request, 'productdetail.html', {'product': product})
     
-# https://www.youtube.com/watch?v=AGtae4L5BbI
 def search_products(request):
     if request.method == "POST":
-        searched = request.POST["searched"]
-        return render(request, "search_products.html", {"searched" : searched})
+        searched = request.POST.get('searched')
+        products = Product.objects.filter(name__contains = searched)
+        return render(request, "events/search_products.html", {'searched' : searched, 'products': products})
     else:
-        return render(request, "search_products.html")
+        return render(request, "events/search_products.html")

@@ -1,9 +1,16 @@
+{% extends 'events/base.html' %}
+
 {% comment %} {% extends "users/login.html" %} {% endcomment %}
 
 {% block content %}
     <center>
         {% if searched %}
             <h1> You searched for {{ searched }} </h1>
+            <br/>
+            {% for product in products %}
+                <a href = "{% url 'productdetail-name' product.name %}">
+                    {{ product }} - {{ product.name }}</a><br/>
+            {% endfor %}
         {% else %}
             <h1> Hey! You forgot to search for a venue.. </h1>
         {% endif %}
