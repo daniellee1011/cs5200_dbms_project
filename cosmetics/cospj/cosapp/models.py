@@ -5,22 +5,34 @@ from django.utils import timezone
 class ProductCategory(models.Model):
     cateName = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.cateName
+
 class ProductType(models.Model):
-    cateName = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    productCategory = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     typeName = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.typeName
 
 class CosmeticCompany(models.Model):
     companyName = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.companyName
+
 class CosmeticBrand(models.Model):
-    companyName = models.ForeignKey(CosmeticCompany, on_delete=models.CASCADE)
+    cosmeticCompany = models.ForeignKey(CosmeticCompany, on_delete=models.CASCADE)
     brandName = models.CharField(max_length=50)
     priceRange = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.brandName
+
 class Product(models.Model):
-    typeName = models.ForeignKey(ProductType, on_delete=models.CASCADE)
-    brandName = models.ForeignKey(CosmeticBrand, on_delete=models.CASCADE, null = True)
+    productType = models.ForeignKey(ProductType, on_delete=models.CASCADE)
+    cosmeticBrand = models.ForeignKey(CosmeticBrand, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     size = models.CharField(max_length=10)

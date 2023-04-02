@@ -1,10 +1,20 @@
-{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+ <meta charset="utf-8">
+<body>
 
-<form action="/url/to/submit/" method="post" class="form">
-    {% csrf_token %}
+    <div class="container">
+        <p>Product Type: {{product.productType}}</p>
+        <p>Brand Name: {{product.cosmeticBrand}}</p>
+        <p>Product Name: {{product.name}}</p>
+        <p>Price: {{product.price}}</p>
+        <p>Size: {{product.size}}</p>
+        <p>Avg.Rating: {{product.avgRating}}</p>
+        <p>Number Of Reviews: {{product.numReviews}}</p>
+        <p>Ingredients: {{product.ingredients}}</p>
+        <h4>Review</h4>
+        <p>description: {{review.description}}</p>
+      </div>
 
-    {% bootstrap_form form %}
-
-    {% bootstrap_button button_type="submit" content="OK" %}
-    {% bootstrap_button button_type="reset" content="Cancel" %}
-</form>
+</body>
