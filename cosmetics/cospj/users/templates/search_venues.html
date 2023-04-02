@@ -1,0 +1,11 @@
+{% comment %} {% extends "users/login.html" %} {% endcomment %}
+
+{% block content %}
+    <center>
+        {% if searched %}
+            <h1> You searched for {{ searched }} </h1>
+        {% else %}
+            <h1> Hey! You forgot to search for a venue.. </h1>
+        {% endif %}
+    </center>
+{% endblock %}
