@@ -42,11 +42,3 @@ def signup_view(request):
         return redirect("user:login")
         
     return render(request, "users/signup.html")
-
-# https://www.youtube.com/watch?v=AGtae4L5BbI
-def search_venues(request):
-    if request.method == "POST":
-        searched = request.POST["searched"]
-        return render(request, "search_venues.html", {"searched" : searched})
-    else:
-        return render(request, "search_venues.html")

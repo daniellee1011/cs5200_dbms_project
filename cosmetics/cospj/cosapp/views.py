@@ -7,7 +7,6 @@ def home(request):
     
     return render(request, 'home.html')
 
-
 def addReview(request, id):
     post = Product.objects.get(id = id)
     if request.method == 'POST':
@@ -55,4 +54,10 @@ def productDetail(request, id):
 
     return render(request, "productdetail.html", context = {"product":product, "reviews":reviews})
     
-
+# https://www.youtube.com/watch?v=AGtae4L5BbI
+def search_products(request):
+    if request.method == "POST":
+        searched = request.POST["searched"]
+        return render(request, "search_products.html", {"searched" : searched})
+    else:
+        return render(request, "search_products.html")
