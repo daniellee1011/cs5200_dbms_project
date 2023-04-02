@@ -37,7 +37,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     size = models.CharField(max_length=10)
     avgRating = models.DecimalField(max_digits=10, decimal_places=2)
-    numReviews = models.IntegerField(max_length=10)
+    numReviews = models.IntegerField()
     ingredients = models.TextField()
 
 class Store(models.Model):
