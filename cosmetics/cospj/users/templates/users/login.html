@@ -1,6 +1,4 @@
-{% extends "events/base.html" %}
-
-{% block title %} Login {% endblock %}
+{% block title %} Login page {% endblock %}
 
 {% block content %}
 
@@ -12,15 +10,15 @@
 
 <br>
 {% if user.is_authenticated %}
-    logged in successfully!
-    Welcome {{ user.username }}
+    logged in successfully!</br>
+    Welcome {{ user.username }}</br>
     <a href = "{% url "user:logout" %}"> logout </a>
 {% else %}
-    <form action = "" method = "POST">
+    <form action = "{% url "user:login" %}" method = "POST">
         {% csrf_token %}
-        <input name = "username" type = "text">
-        <input name = "password" type = "password">
-        <input type = "submit" value = "login">
+        <input name = "username" type = "text" placeholder = "username"></br>
+        <input name = "password" type = "password" placeholder = "password"></br>
+        <input type = "submit" value = "login"></br>
     </form>
     
     <a href = "{% url "user:signup" %}"> Sign up </a>
