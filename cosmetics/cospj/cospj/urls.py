@@ -32,4 +32,5 @@ urlpatterns = [
     path('search_products', cosapp.views.search_products, name = "search-products"),
     path('list_types', cosapp.views.list_types, name = 'list-types'),
     path('show_type/<type_id>', cosapp.views.show_type, name = 'show-type'),
+    path('update_profile/', cosapp.views.update_profile, name = 'update-profile'),
 ]

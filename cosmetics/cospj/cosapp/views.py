@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
@@ -100,6 +101,11 @@ def productDetail(request, id):
 
     return render(request, "productdetail.html", context = {"product":product, "reviews":reviews})
 
+# @login_required
+# def show_review(request, user_id):
+#     reviews = UserReview.objects.filter(user_id = user_id)
+#     return render(request, "events/update_profile.html", {"reviews": reviews})
+
 def productType(request, id):
     products = Product.objects.filter(productType_id = id)
 
@@ -124,3 +130,20 @@ def show_type(request, id):
 def list_types(request):
     type_list = ProductType.objects.all()
     return render(request, 'events/type.html', {'type_list': type_list})
+
+def update_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
+    
+    if request.method == "POST":
+        form = UserProfileUpdateForm(request.POST, instance = request.user)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserProfileUpdateForm(instance = request.user)
+        
+    reviews = UserReview.objects.filter(user=request.user)
+        
+    return render(request, 'events/update_profile.html', context = {'form': form, 'reviews': reviews})

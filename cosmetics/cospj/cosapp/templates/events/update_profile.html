@@ -1,0 +1,23 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+    <h1> Update Profile </h1>
+
+    <form method = "POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type = "submit"> Update </button>
+    </form><br/>
+
+    <h3> Reviews </h3>
+    {% for review in reviews %}
+    <div class = "review">
+        <h5> Product: {{ review.product.name }} </h5>
+        <p> Rating: {{ review.stars }} </p>
+        <p> Description: {{ review.description }} </p>
+    {% empty %}
+        <p> No reviews posted yet </p>
+    {% endfor %}
+
+{% endblock %}
