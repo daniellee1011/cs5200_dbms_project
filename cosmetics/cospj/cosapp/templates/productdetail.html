@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
- <meta charset="utf-8">
-<body>
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
 
     <div class="container">
-        <p>Product Type: {{product.productType}}</p>
-        <p>Brand Name: {{product.cosmeticBrand}}</p>
-        <p>Product Name: {{product.name}}</p>
-        <p>Price: {{product.price}}</p>
-        <p>Size: {{product.size}}</p>
-        <p>Avg.Rating: {{product.avgRating}}</p>
-        <p>Number Of Reviews: {{product.numReviews}}</p>
-        <p>Ingredients: {{product.ingredients}}</p>
+          <div class="card mb-1">
+            <div class="card-body">
+
+              <h2>{{product.cosmeticBrand}}</h2>
+              <h3 class="product-title">{{product.name}}</h3>
+              <div class="rating">
+                Avg.Rating: {{product.avgRating}}
+                <span class="review-no">Number of Reviews: {{product.numReviews}}</span>
+              </div>
+              <h3>Size: {{product.size}}</h3>
+              <h4 class="price">Price: <span>{{product.price}}</span></h4>
+              <h5>Ingredients: {{product.ingredients}}</h5>
+              <div class="action">
+                <a href="{% url 'review' product.id %}" class="btn btn-primary">Add Review</a>
+              </div>
+
+            </div>
+          </div>
+
         <h4>Review</h4>
-        
+
         {% if reviews %}
         {% for review in reviews %}
             <div class="card mb-1">
                 <div class="card-body">
-                    <p class="card-title">{{ review.user }} - {{ review.date }} -{{ review.description }} </p>
+                    <p class="card-title">{{ review.user }} - {{ review.date }} - {{ review.description }} </p>
                 </div>
             </div>
-        {% endfor %}
+        {% endfor %} 
 
 
     {% else %}
@@ -30,5 +40,4 @@
 
     {% endif %}
       </div>
-
-</body>
+{% endblock %}
