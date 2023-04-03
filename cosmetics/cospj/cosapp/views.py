@@ -48,6 +48,29 @@ def deleteReview(request, product_id, userreview_id):
         return redirect('productdetail', product_id)
     else:
         return redirect('home')
+    
+def editReview(request, product_id, userreview_id):
+    print("11")
+    if request.user.is_authenticated:
+        product = Product.objects.get(id = product_id)
+        review = UserReview.objects.get(product = product, id = userreview_id)
+        if request.user == review.user:
+            if request.method == 'POST':
+                print("1")
+                form = UserReviewForm(request.POST, instance=review)
+                print(form)
+                if form.is_valid():
+                    print("2")
+                    form.save()
+                    print(form)
+                    return redirect('productdetail', product_id)
+                            
+                else:
+                    return redirect('home')
+            print("3")
+            form = UserReviewForm(instance=review)
+
+            return render(request, 'addreview.html', {'form':form})
 
 def addProduct(request):
 
