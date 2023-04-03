@@ -132,11 +132,6 @@ def productDetail(request, id):
 
     return render(request, "productdetail.html", context = {"product":product, "reviews":reviews})
 
-# @login_required
-# def show_review(request, user_id):
-#     reviews = UserReview.objects.filter(user_id = user_id)
-#     return render(request, "events/update_profile.html", {"reviews": reviews})
-
 def productType(request, id):
     products = Product.objects.filter(productType_id = id)
 
@@ -149,7 +144,7 @@ def productdetail_name(request, name):
 def search_products(request):
     if request.method == "POST":
         searched = request.POST.get('searched')
-        products = Product.objects.filter(name__contains = searched)
+        products = Product.objects.filter(name__icontains = searched)
         return render(request, "events/search_products.html", {'searched' : searched, 'products': products})
     else:
         return render(request, "events/search_products.html")
