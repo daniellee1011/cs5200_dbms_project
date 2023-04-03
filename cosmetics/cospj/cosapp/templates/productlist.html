@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
     {% if productlist %}
         {% for product in productlist %}
             <div class="card mb-1">
@@ -11,11 +10,8 @@
                 </div>
             </div>
         {% endfor %}
-
-
     {% else %}
         <p>No products found.</p>
-
     {% endif %}
 
 {% endblock %}

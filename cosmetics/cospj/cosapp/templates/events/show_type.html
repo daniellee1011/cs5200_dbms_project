@@ -1,0 +1,21 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <h1> {{ type }} </h1>
+    <br/>
+
+    <div class="card">
+        <div class="card-header">
+             Product Type
+        </div>
+          <div class="card-body">
+            <h5 class="card-title"> {{ type }} </h5>
+           <p class="card-text">
+           <ul>
+            <li> <a href = "{{ type.typeName }}">{{ type.typeName }} <br/></li>
+            </ul>
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+{% endblock %}

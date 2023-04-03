@@ -83,3 +83,11 @@ def search_products(request):
         return render(request, "events/search_products.html", {'searched' : searched, 'products': products})
     else:
         return render(request, "events/search_products.html")
+
+def show_type(request, id):
+    type = ProductType.objects.get(pk=id)
+    return render(request, 'events/show_type.html', {'type': type})
+
+def list_types(request):
+    type_list = ProductType.objects.all()
+    return render(request, 'events/type.html', {'type_list': type_list})

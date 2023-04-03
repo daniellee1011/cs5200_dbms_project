@@ -1,0 +1,14 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+<h1> Product Type </h1>
+    <table class="table table-hover table-striped table-bordered">
+    {% for type in type_list %}
+        <tr>
+            <td><a href = "{% url 'producttype' type.id %}"> {{ type }}<br/></td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}
