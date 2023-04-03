@@ -9,19 +9,31 @@ def home(request):
     return render(request, 'home.html')
 
 def addReview(request, id):
-    post = Product.objects.get(id = id)
-    if request.method == 'POST':
-        form = UserReviewForm(request.POST)
-        if form.is_valid():
-            try:
-                user = User.objects.get(id=1)
+    product = Product.objects.get(id = id)
+    print(product)
+    current_user = request.user
+    print(current_user)
+    if request.user.is_authenticated:
+
+        if request.method == 'POST':
+
+            form = UserReviewForm(request.POST)
+
+            if form.is_valid():
+                
+                if UserReview.objects.filter(user_id=current_user.id, product_id = product.id).exists():
+                    return redirect('productdetail', id)
+               
                 stars = request.POST.get('stars')
                 description = request.POST.get('description')
-                review = UserReview(product=post, user=user, stars=stars, description=description)
+                review = UserReview(product_id=product.id, user_id=current_user.id, stars=stars, description=description)
                 review.save()
-                return redirect('home')
-            except:
-                pass
+
+                return redirect('productdetail', id)
+
+                
+    else:
+        return redirect('home')
 
     form = UserReviewForm()
 
@@ -51,7 +63,7 @@ def addProduct(request):
 
 def productDetail(request, id):
     product = Product.objects.get(id=id)
-    reviews = UserReview.objects.filter(product = id)
+    reviews = UserReview.objects.filter(product_id = id)
 
     return render(request, "productdetail.html", context = {"product":product, "reviews":reviews})
 

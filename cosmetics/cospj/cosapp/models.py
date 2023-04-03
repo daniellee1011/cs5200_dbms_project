@@ -49,8 +49,8 @@ class Store(models.Model):
 
 class UserReview(models.Model):
     product = models.ForeignKey(Product, on_delete = models.CASCADE)
-    user = models.OneToOneField(User, on_delete = models.CASCADE)
-    date = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
     ratingOption = (
         (1,1),
         (2,2),
@@ -58,5 +58,5 @@ class UserReview(models.Model):
         (4,4),
         (5,5)
     )
-    stars = models.IntegerField(choices=ratingOption, null= True)
+    stars = models.IntegerField(choices=ratingOption)
     description = models.TextField()

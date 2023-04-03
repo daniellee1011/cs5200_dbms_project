@@ -14,7 +14,21 @@
         <p>Number Of Reviews: {{product.numReviews}}</p>
         <p>Ingredients: {{product.ingredients}}</p>
         <h4>Review</h4>
-        <p>description: {{review.description}}</p>
+        
+        {% if reviews %}
+        {% for review in reviews %}
+            <div class="card mb-1">
+                <div class="card-body">
+                    <p class="card-title">{{ review.user }} - {{ review.date }} -{{ review.description }} </p>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    {% else %}
+        <p>No reviews found.</p>
+
+    {% endif %}
       </div>
 
 </body>
