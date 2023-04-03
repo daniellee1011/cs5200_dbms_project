@@ -74,57 +74,61 @@ def editReview(request, product_id, userreview_id):
             return render(request, 'addreview.html', {'form':form})
 
 def addProduct(request):
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                form = ProductForm(request.POST)
+                if form.is_valid():
+                    try:
+                        typename = request.POST.get('productType')
+                        brandname = request.POST.get('cosmeticBrand')
+                        name = request.POST.get('name')
+                        price = request.POST.get('price')
+                        size = request.POST.get('size')
+                        ingredients = request.POST.get('ingredients')
+                        product = Product(productType_id = typename, cosmeticBrand_id = brandname, name = name, price = price, size = size, avgRating = 0, numReviews = 0, ingredients = ingredients)
+                        product.save()
+                        return redirect('home')
+                    except:
+                        pass
 
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            try:
-                typename = request.POST.get('productType')
-                brandname = request.POST.get('cosmeticBrand')
-                name = request.POST.get('name')
-                price = request.POST.get('price')
-                size = request.POST.get('size')
-                ingredients = request.POST.get('ingredients')
-                product = Product(productType_id = typename, cosmeticBrand_id = brandname, name = name, price = price, size = size, avgRating = 0, numReviews = 0, ingredients = ingredients)
-                product.save()
-                return redirect('home')
-            except:
-                pass
-
-    form = ProductForm()
+            form = ProductForm()
     
-    return render(request, 'addproduct.html', {'form':form})
+            return render(request, 'addproduct.html', {'form':form})
 
 def editProduct(request, id):
     if request.user.is_authenticated:
-        product = Product.objects.get(id = id)
-        if request.method == 'POST':
-                        
-            form = ProductForm(request.POST, instance=product)
+        if request.user.is_superuser:
+            product = Product.objects.get(id = id)
+            if request.method == 'POST':
+                            
+                form = ProductForm(request.POST, instance=product)
+            
+                if form.is_valid():
+                
+                    form.save()
+                
+                    return redirect('productdetail', id)
+                            
+                else:
+                    return redirect('home')
         
-            if form.is_valid():
-            
-                form.save()
-            
-                return redirect('productdetail', id)
-                        
-            else:
-                return redirect('home')
-    
-        form = ProductForm(instance=product)
+            form = ProductForm(instance=product)
 
-        return render(request, 'addproduct.html', {'form':form})
+            return render(request, 'addproduct.html', {'form':form})
+        
+    return redirect('home')
     
 def deleteProduct(request, id):
     if request.user.is_authenticated:
-        product = Product.objects.get(id = id)
+        if request.user.is_superuser:
+            product = Product.objects.get(id = id)
 
-        product.delete()
+            product.delete()
 
-        return redirect('home')
+            return redirect('home')
     
-    else:
-        return redirect('home')
+    return redirect('home')
     
 def productDetail(request, id):
     product = Product.objects.get(id=id)
