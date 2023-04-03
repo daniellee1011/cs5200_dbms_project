@@ -17,7 +17,7 @@
               <h4 class="price">Price: <span>{{product.price}}</span></h4>
               <h5>Ingredients: {{product.ingredients}}</h5>
               <div class="action">
-                <a href="{% url 'review' product.id %}" class="btn btn-primary">Add Review</a>
+                <a href="{% url 'review' product.id %}" class="btn btn-outline-primary" style="float: right">Add Review</a>
               </div>
 
             </div>
@@ -30,6 +30,9 @@
             <div class="card mb-1">
                 <div class="card-body">
                     <p class="card-title">{{ review.user }} - {{ review.date }} - {{ review.description }} </p>
+                    <div class="action">
+                      <a href="{% url 'delete_review' product.id review.id %}" class="btn btn-outline-danger" style="float: right">Delete</a>
+                    </div>
                 </div>
             </div>
         {% endfor %} 

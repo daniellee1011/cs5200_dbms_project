@@ -10,9 +10,9 @@ def home(request):
 
 def addReview(request, id):
     product = Product.objects.get(id = id)
-    print(product)
+
     current_user = request.user
-    print(current_user)
+
     if request.user.is_authenticated:
 
         if request.method == 'POST':
@@ -38,6 +38,16 @@ def addReview(request, id):
     form = UserReviewForm()
 
     return render(request, 'addreview.html', {'form':form})
+
+def deleteReview(request, product_id, userreview_id):
+    if request.user.is_authenticated:
+        product = Product.objects.get(id = product_id)
+        review = UserReview.objects.get(product = product, id = userreview_id)
+        if request.user == review.user:
+            review.delete()
+        return redirect('productdetail', product_id)
+    else:
+        return redirect('home')
 
 def addProduct(request):
 

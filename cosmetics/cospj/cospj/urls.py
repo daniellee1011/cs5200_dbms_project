@@ -23,6 +23,7 @@ urlpatterns = [
     path('', cosapp.views.home, name='home'),
     path('users/', include("users.urls")),
     path('review/<int:id>', cosapp.views.addReview, name='review'),
+    path('deletereview/<int:product_id>/<int:userreview_id>', cosapp.views.deleteReview, name='delete_review'),
     path('addproduct/', cosapp.views.addProduct, name='addProduct'),
     path('productdetail/<int:id>', cosapp.views.productDetail, name = 'productdetail'),
     path('productdetail/<str:name>', cosapp.views.productdetail_name, name = 'productdetail-name'),
