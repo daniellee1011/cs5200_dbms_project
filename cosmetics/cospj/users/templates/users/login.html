@@ -2,20 +2,28 @@
 
 {% block content %}
 
-<br>
-{% if user.is_authenticated %}
-    logged in successfully!</br>
-    Welcome {{ user.username }}</br>
-    <a href = "{% url "user:logout" %}"> logout </a>
-{% else %}
-    <form action = "{% url "user:login" %}" method = "POST">
-        {% csrf_token %}
-        <input name = "username" type = "text" placeholder = "username"></br>
-        <input name = "password" type = "password" placeholder = "password"></br>
-        <input type = "submit" value = "login"></br>
-    </form>
-    
-    <a href = "{% url "user:signup" %}"> Sign up </a>
-{% endif %}
+    {% if messages %}
+    <ul class = "messages">
+        {% for message in messages %}
+            {% if forloop.first %}
+            <div {% if message.tags %} class = "{{ message.tags }}" {% endif %}>{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        Logged in successfully!</br>
+        Welcome {{ user.username }}</br>
+        <a href = "{% url "user:logout" %}"> logout </a>
+    {% else %}
+        <form action = "{% url "user:login" %}" method = "POST">
+            {% csrf_token %}
+            <input name = "username" type = "text" placeholder = "username"></br>
+            <input name = "password" type = "password" placeholder = "password"></br>
+            <input type = "submit" value = "login"></br>
+        </form>
+
+        <a href = "{% url "user:signup" %}"> Sign up </a>
+    {% endif %}
 
 {% endblock %}

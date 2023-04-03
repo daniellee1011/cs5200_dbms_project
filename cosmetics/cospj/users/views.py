@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 from django.shortcuts import redirect
 from .models import User
 
@@ -9,12 +10,13 @@ def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(username = username, password = password)
+        user = authenticate(request, username = username, password = password)
         if user is not None:
-            print("logged successfully")
+            print("Logged successfully")
             login(request, user)
         else:
-            print("login failed")
+            messages.warning(request, "Invalid username or password!")
+            print("Login failed")
         
     return render(request, "home.html")
 
