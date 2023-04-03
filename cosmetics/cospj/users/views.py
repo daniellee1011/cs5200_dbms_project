@@ -16,12 +16,12 @@ def login_view(request):
         else:
             print("login failed")
         
-    return render(request, "users/login.html")
+    return render(request, "home.html")
 
 def logout_view(request):
     logout(request)
     
-    return redirect("user:login")
+    return redirect("home")
 
 def signup_view(request):
     if request.method == "POST":

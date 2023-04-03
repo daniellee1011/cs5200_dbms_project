@@ -1,12 +1,6 @@
-{% block title %} Login page {% endblock %}
+{% block title %} Login {% endblock %}
 
 {% block content %}
-
-{% comment %} <form class = "d-flex" method = "POST" action = "{% url "user:search_venues" %}">
-    {% csrf_token %}
-    <input class = "form-control me-2" type = "search" placeholder = "Search Venues" aria-label = "Search" name = "searched">
-    <button class = "btn btn-outlie-secondary" type = "submit"> Serach </button>
-</form> {% endcomment %}
 
 <br>
 {% if user.is_authenticated %}
