@@ -26,5 +26,6 @@ urlpatterns = [
     path('addproduct/', cosapp.views.addProduct, name='addProduct'),
     path('productdetail/<int:id>', cosapp.views.productDetail, name = 'productdetail'),
     path('productdetail/<str:name>', cosapp.views.productdetail_name, name = 'productdetail-name'),
+    path('producttype/<int:id>', cosapp.views.productType, name = 'producttype'),
     path('search_products', cosapp.views.search_products, name = "search-products"),
 ]

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import *
 from .forms import *
 
@@ -53,6 +54,11 @@ def productDetail(request, id):
     reviews = UserReview.objects.filter(product = id)
 
     return render(request, "productdetail.html", context = {"product":product, "reviews":reviews})
+
+def productType(request, id):
+    products = Product.objects.filter(productType_id = id)
+
+    return render(request, "productlist.html", context = {"productlist":products})
 
 def productdetail_name(request, name):
     product = Product.objects.get(name=name)

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    {% if productlist %}
+        {% for product in productlist %}
+            <div class="card mb-1">
+                <div class="card-body">
+                    <a href="{% url 'productdetail-name' product.name %}" class="card-title">{{ product.name }}</a>
+                </div>
+            </div>
+        {% endfor %}
+
+
+    {% else %}
+        <p>No products found.</p>
+
+    {% endif %}
+
+{% endblock %}
