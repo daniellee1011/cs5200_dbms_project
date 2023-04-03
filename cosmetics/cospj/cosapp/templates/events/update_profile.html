@@ -6,8 +6,13 @@
 
     <form method = "POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type = "submit"> Update </button>
+        {{ form.email.label_tag }} {{ form.email }}<br/>
+        {{ form.nickname.label_tag }} {{ form.nickname }}<br/>
+        {{ form.age.label_tag }} {{ form.age }}<br/>
+        {{ form.gender.label_tag }} {{ form.gender }}<br/>
+        {{ form.skin_type.label_tag }} {{ form.skin_type }}<br/>
+        {{ form.address.label_tag }} {{ form.address }}<br/>
+        <input type="submit" value="Update Profile">
     </form><br/>
 
     <h3> Reviews </h3>
