@@ -51,24 +51,24 @@ def deleteReview(request, product_id, userreview_id):
         return redirect('home')
     
 def editReview(request, product_id, userreview_id):
-    print("11")
+
     if request.user.is_authenticated:
         product = Product.objects.get(id = product_id)
         review = UserReview.objects.get(product = product, id = userreview_id)
         if request.user == review.user:
             if request.method == 'POST':
-                print("1")
+                
                 form = UserReviewForm(request.POST, instance=review)
-                print(form)
+               
                 if form.is_valid():
-                    print("2")
+                  
                     form.save()
-                    print(form)
+                  
                     return redirect('productdetail', product_id)
                             
                 else:
                     return redirect('home')
-            print("3")
+           
             form = UserReviewForm(instance=review)
 
             return render(request, 'addreview.html', {'form':form})
@@ -95,6 +95,37 @@ def addProduct(request):
     
     return render(request, 'addproduct.html', {'form':form})
 
+def editProduct(request, id):
+    if request.user.is_authenticated:
+        product = Product.objects.get(id = id)
+        if request.method == 'POST':
+                        
+            form = ProductForm(request.POST, instance=product)
+        
+            if form.is_valid():
+            
+                form.save()
+            
+                return redirect('productdetail', id)
+                        
+            else:
+                return redirect('home')
+    
+        form = ProductForm(instance=product)
+
+        return render(request, 'addproduct.html', {'form':form})
+    
+def deleteProduct(request, id):
+    if request.user.is_authenticated:
+        product = Product.objects.get(id = id)
+
+        product.delete()
+
+        return redirect('home')
+    
+    else:
+        return redirect('home')
+    
 def productDetail(request, id):
     product = Product.objects.get(id=id)
     reviews = UserReview.objects.filter(product_id = id)
