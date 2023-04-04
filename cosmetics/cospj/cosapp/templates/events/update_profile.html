@@ -2,25 +2,34 @@
 
 {% block content %}
 
-    <h1> Update Profile </h1>
+    <h1> Update Profile </h1><br/>
 
-    <form method = "POST">
+    <form action = "" method = "POST">
         {% csrf_token %}
+        <label class="form-label">Email address</label>
         {{ form.email.label_tag }} {{ form.email }}<br/>
+        <label class="form-label">Nickname</label>
         {{ form.nickname.label_tag }} {{ form.nickname }}<br/>
+        <label class="form-label">Age</label>
         {{ form.age.label_tag }} {{ form.age }}<br/>
+        <label class="form-label">Gender</label>
         {{ form.gender.label_tag }} {{ form.gender }}<br/>
+        <label class="form-label">Skin Type</label>
         {{ form.skin_type.label_tag }} {{ form.skin_type }}<br/>
+        <label class="form-label">Address</label>
         {{ form.address.label_tag }} {{ form.address }}<br/>
         <input type="submit" value="Update">
     </form><br/>
 
     <h3> Reviews </h3>
     {% for review in reviews %}
-    <div class = "review">
-        <h5> Product: {{ review.product.name }} </h5>
-        <p> Rating: {{ review.stars }} </p>
-        <p> Description: {{ review.description }} </p>
+    <div class = "card" style="width: 50rem;">
+        <div class="card-body">
+        <h5 class="card-title">Product: {{ review.product.name }}</h5>
+        <p class="card-text">Rating: {{ review.stars }}</p>
+        <p class="card-text">Description: {{ review.description }}</p>
+        </div>
+    </div>
     {% empty %}
         <p> No reviews posted yet </p>
     {% endfor %}

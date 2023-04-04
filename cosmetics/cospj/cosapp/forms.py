@@ -13,8 +13,22 @@ class UserReviewForm(forms.ModelForm):
         fields = ('stars', 'description')
         
 class UserProfileUpdateForm(UserChangeForm):
-    email = forms.EmailField(required = True)
-    
     class Meta:
         model = User
         fields = ('email', 'nickname', 'age', 'gender', 'skin_type', 'address')
+        labels = {
+            'email': '',
+            'nickname': '',
+            'age': '',
+            'gender': '',
+            'skin_type': '',
+            'address': '',
+        }
+        widgets = {
+            'email': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Email'}),
+            'nickname': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Nickname'}),
+            'age': forms.NumberInput(attrs = {'class': 'form-control', 'placeholder': 'Age'}),
+            'gender': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Gender'}),
+            'skin_type': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Skin Type'}),
+            'address': forms.TextInput(attrs = {'class': 'form-control', 'placeholder': 'Address'}),
+        }

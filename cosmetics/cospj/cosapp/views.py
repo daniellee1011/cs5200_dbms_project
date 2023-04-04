@@ -172,7 +172,7 @@ def update_profile(request):
         
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            return redirect('update-profile')
     else:
         form = UserProfileUpdateForm(instance = request.user)
         
