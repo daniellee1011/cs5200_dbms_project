@@ -6,8 +6,7 @@
 {% block content %}
 
     {% if user.is_authenticated %}
-        Logged in successfully!</br>
-        Welcome {{ user.username }}</br>
+        <h4>Welcome {{ user.username }}</h4>
         <a href = "{% url "user:logout" %}"> logout </a>
     {% else %}
         <form action = "{% url "user:login" %}" method = "POST">
