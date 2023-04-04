@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import *
 from .forms import *
 
@@ -29,10 +30,9 @@ def addReview(request, id):
                 description = request.POST.get('description')
                 review = UserReview(product_id=product.id, user_id=current_user.id, stars=stars, description=description)
                 review.save()
-
+                messages.success(request, "Review added.")
                 return redirect('productdetail', id)
 
-                
     else:
         return redirect('home')
 
@@ -46,6 +46,7 @@ def deleteReview(request, product_id, userreview_id):
         review = UserReview.objects.get(product = product, id = userreview_id)
         if request.user == review.user:
             review.delete()
+            messages.success(request, "Review deleted.")
         return redirect('productdetail', product_id)
     else:
         return redirect('home')
@@ -63,7 +64,7 @@ def editReview(request, product_id, userreview_id):
                 if form.is_valid():
                   
                     form.save()
-                  
+                    messages.success(request, "Review edited.")
                     return redirect('productdetail', product_id)
                             
                 else:
@@ -88,6 +89,7 @@ def addProduct(request):
                         ingredients = request.POST.get('ingredients')
                         product = Product(productType_id = typename, cosmeticBrand_id = brandname, name = name, price = price, size = size, avgRating = 0, numReviews = 0, ingredients = ingredients)
                         product.save()
+                        messages.success(request, "Product added.")
                         return redirect('home')
                     except:
                         pass
@@ -107,7 +109,7 @@ def editProduct(request, id):
                 if form.is_valid():
                 
                     form.save()
-                
+                    messages.success(request, "Product edited.")
                     return redirect('productdetail', id)
                             
                 else:
@@ -125,7 +127,7 @@ def deleteProduct(request, id):
             product = Product.objects.get(id = id)
 
             product.delete()
-
+            messages.success(request, "Product deleted.")
             return redirect('home')
     
     return redirect('home')

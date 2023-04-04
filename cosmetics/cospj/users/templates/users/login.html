@@ -1,15 +1,9 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
 {% block title %} Login {% endblock %}
 
 {% block content %}
-
-    {% if messages %}
-    <ul class = "messages">
-        {% for message in messages %}
-            {% if forloop.first %}
-            <div {% if message.tags %} class = "{{ message.tags }}" {% endif %}>{{ message }}</div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
 
     {% if user.is_authenticated %}
         Logged in successfully!</br>
