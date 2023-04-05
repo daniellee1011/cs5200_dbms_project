@@ -34,6 +34,7 @@
               <div>Size: {{product.size}}</div>
               <div class="price">Price: <span>{{product.price}}</span></div>
               <div>Ingredients: {{product.ingredients}}</div>
+              <div>Store: {{store}}</div>
               <div class="action">
                 <a href="{% url 'review' product.id %}" class="btn btn-outline-primary" style="float: right">Add Review</a>
               </div>
@@ -47,7 +48,7 @@
         {% for review in reviews %}
             <div class="card mb-1" style="margin-top: 10px;">
                 <div class="card-body">
-                    <div class="card-title">{{ review.user }}                     
+                    <div class="card-title">{{ review.user }} {{review.stars}}                    
                       <div style="float: right">
                       {{ review.date }}
                       </div>

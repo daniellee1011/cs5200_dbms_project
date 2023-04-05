@@ -80,19 +80,11 @@ def addProduct(request):
             if request.method == 'POST':
                 form = ProductForm(request.POST)
                 if form.is_valid():
-                    try:
-                        typename = request.POST.get('productType')
-                        brandname = request.POST.get('cosmeticBrand')
-                        name = request.POST.get('name')
-                        price = request.POST.get('price')
-                        size = request.POST.get('size')
-                        ingredients = request.POST.get('ingredients')
-                        product = Product(productType_id = typename, cosmeticBrand_id = brandname, name = name, price = price, size = size, avgRating = 0, numReviews = 0, ingredients = ingredients)
-                        product.save()
+
+                        form.save()
                         messages.success(request, "Product added.")
                         return redirect('home')
-                    except:
-                        pass
+                    
 
             form = ProductForm()
     
@@ -105,7 +97,7 @@ def editProduct(request, id):
             if request.method == 'POST':
                             
                 form = ProductForm(request.POST, instance=product)
-            
+                messages.error(request, form.errors)
                 if form.is_valid():
                 
                     form.save()
@@ -134,9 +126,11 @@ def deleteProduct(request, id):
     
 def productDetail(request, id):
     product = Product.objects.get(id=id)
+    store = Store.objects.filter(products=product.id)
+    stores = ', '.join(str(x) for x in store)
     reviews = UserReview.objects.filter(product_id = id)
 
-    return render(request, "productdetail.html", context = {"product":product, "reviews":reviews})
+    return render(request, "productdetail.html", context = {"product":product, "reviews":reviews, "store":stores})
 
 def productType(request, id):
     products = Product.objects.filter(productType_id = id)
