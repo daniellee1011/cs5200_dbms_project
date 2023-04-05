@@ -8,7 +8,7 @@
             <div class="card mb-1">
                 <div class="card-body">
                     <div>
-                    <a href="{% url 'productdetail-name' product.name %}" class="card-title">{{ product.name }}</a>
+                    <a href="{% url 'productdetail' product.id %}" class="card-title">{{ product.name }}</a>
                     </div>
                     <div>
                     <p>Average Rating:{{ product.avgRating }}  Reviews:{{ product.numReviews }}</p>
