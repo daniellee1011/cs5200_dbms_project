@@ -4,7 +4,7 @@
 {% block content %}
 {% include 'events/base.html' %}
     <div class="container">
-          <div class="card mb-1" style="margin-top: 50px;">
+          <div class="card border-dark mb-3" style="margin-top: 50px;">
             <div class="card-body">
               <small class="text-muted">{{product.cosmeticBrand}}</small>
               <div class="action">
@@ -46,13 +46,18 @@
 
         {% if reviews %}
         {% for review in reviews %}
-            <div class="card mb-1" style="margin-top: 10px;">
+          {%  if review.user.is_staff%}
+            <div class="card border-info mb-3" style="margin-top: 10px;">
+              <div class="card-header">Expert</div>
+              {% else %}
+              <div class="card border-dark mb-3" style="margin-top: 10px;">
+              {% endif %}
                 <div class="card-body">
-                    <div class="card-title">{{ review.user }} {{review.stars}}                    
-                      <div style="float: right">
-                      {{ review.date }}
-                      </div>
-                    </div>
+                    <h5 class="card-title">{{ review.user }} {{review.stars}}                    
+                      <h8 style="float: right">
+                        <small class="text-muted">{{ review.date }}</small>
+                      </h8>
+                    </h5>
                     <div>
                       {{ review.description }} 
                     </div>
