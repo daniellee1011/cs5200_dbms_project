@@ -37,16 +37,20 @@ def signup_view(request):
         skin_type = request.POST["skin_type"]
         address = request.POST["address"]
         email = request.POST["email"]
+        is_superuser = request.POST["is_superuser"]
+        is_staff = request.POST["is_staff"]
         
         user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password,
-            nickname=nickname,
-            age=age,
-            gender=gender,
-            skin_type=skin_type,
-            address=address
+            username = username,
+            email = email,
+            password = password,
+            nickname = nickname,
+            age = age,
+            gender = gender,
+            skin_type = skin_type,
+            address = address,
+            is_superuser = is_superuser,
+            is_staff = is_staff,
         )
         user.save()
         return redirect("user:login")
