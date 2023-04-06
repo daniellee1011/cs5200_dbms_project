@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import redirect
 from .models import User
+import mysql.connector
 
 # Create your views here.
 
@@ -39,6 +40,27 @@ def signup_view(request):
         email = request.POST["email"]
         is_superuser = request.POST["is_superuser"]
         is_staff = request.POST["is_staff"]
+
+        cnx = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '0000',
+            database = 'cosmetics'
+        )
+
+        cursor = cnx.cursor()
+        query = "SELECT check_username(%s)"
+        cursor.execute(query, (username,))
+        exist = cursor.fetchone()[0]
+
+        print("***** exist: ", exist)
+        cursor.close()
+        cnx.close()
+
+        if exist != 0:
+            messages.warning(request, "username already exists!")
+            print("Sign up failed")
+            return render(request, "users/signup.html")
         
         user = User.objects.create_user(
             username = username,

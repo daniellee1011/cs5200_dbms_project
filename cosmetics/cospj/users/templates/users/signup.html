@@ -1,27 +1,42 @@
 Sign up page
 <br>
 
-<form action = "" method = "POST">
-    {% csrf_token %}
-    <p> username </p>
-    <input name = "username" type = "text">
-    <p> password </p>
-    <input name = "password" type = "password">
-    <p> email </p>
-    <input name = "email" type = "text">
-    <p> nickname </p>
-    <input name = "nickname" type = "text">
-    <p> age </p>
-    <input name = "age" type = "text">
-    <p> gender </p>
-    <input name = "gender" type = "text">
-    <p> skin_type </p>
-    <input name = "skin_type" type = "text">
-    <p> address </p>
-    <input name = "address" type = "text">
-    <p> If company admin, enter 1. Otherwise, enter 0 </p>
-    <input name = "is_superuser" type = "number">
-    <p> If expert, enter 1. Otherwise, enter 0 </p>
-    <input name = "is_staff" type = "number"></br></br>
-    <input type = "submit" value = "sign up">
-</form>
+{% block content %}
+
+    {% if messages %}
+    <ul class = "messages">
+        {% for message in messages %}
+            {% if forloop.last %}
+                <li {% if message.tags %} class = "{{ message.tags}}" {% endif %}> {{ message }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+    <form action = "" method = "POST">
+        {% csrf_token %}
+        <p> username </p>
+        <input name = "username" type = "text">
+        <p> password </p>
+        <input name = "password" type = "password">
+        <p> email </p>
+        <input name = "email" type = "text">
+        <p> nickname </p>
+        <input name = "nickname" type = "text">
+        <p> age </p>
+        <input name = "age" type = "text">
+        <p> gender </p>
+        <input name = "gender" type = "text">
+        <p> skin_type </p>
+        <input name = "skin_type" type = "text">
+        <p> address </p>
+        <input name = "address" type = "text">
+        <p> If company admin, enter 1. Otherwise, enter 0 </p>
+        <input name = "is_superuser" type = "number">
+        <p> If expert, enter 1. Otherwise, enter 0 </p>
+        <input name = "is_staff" type = "number"></br></br>
+        <input type = "submit" value = "sign up">
+    </form>
+
+{% endblock %}
