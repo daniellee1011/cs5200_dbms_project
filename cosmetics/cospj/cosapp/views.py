@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db import connections
 from .models import *
 from .forms import *
 
@@ -165,7 +166,11 @@ def update_profile(request):
         form = UserProfileUpdateForm(request.POST, instance = request.user)
         
         if form.is_valid():
-            form.save()
+            print('update_profile: call update_profile procedure')
+            username = request.user.username
+            connection = connections['default']
+            with connection.cursor() as cursor:
+                cursor.callproc('update_profile', [username, form.cleaned_data['email'], form.cleaned_data['nickname'], form.cleaned_data['age'], form.cleaned_data['gender'], form.cleaned_data['skin_type'], form.cleaned_data['address']])
             return redirect('update-profile')
     else:
         form = UserProfileUpdateForm(instance = request.user)
