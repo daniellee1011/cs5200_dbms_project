@@ -33,3 +33,22 @@ DELIMITER ;
 
 SELECT * FROM cosapp_product WHERE name LIKE '%cream%';
 CALL search_product_by_name('cream');
+
+-- 3.
+DROP PROCEDURE IF EXISTS search_review_by_user;
+DELIMITER $$
+CREATE PROCEDURE search_review_by_user(user_id_p BIGINT)
+BEGIN
+	SELECT r.*, p.name FROM cosapp_userreview AS r
+		LEFT JOIN cosapp_product AS p
+        ON r.product_id = p.id
+        WHERE user_id = user_id_p;
+END $$
+DELIMITER ;
+
+SELECT * FROM users_user;
+SELECT * FROM cosapp_userreview;
+CALL search_review_by_user(2);
+SELECT r.*, p.name FROM cosapp_userreview AS r
+	LEFT JOIN cosapp_product AS p ON r.product_id = p.id
+	WHERE user_id = 2;

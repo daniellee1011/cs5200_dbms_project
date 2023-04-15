@@ -179,7 +179,12 @@ def update_profile(request):
             return redirect('update-profile')
     else:
         form = UserProfileUpdateForm(instance = request.user)
-        
-    reviews = UserReview.objects.filter(user=request.user)
+
+    print('update_profile: call search_review_by_user procedure')
+    user_id = request.user.id
+    connection = connections['default']
+    with connection.cursor() as cursor:
+        cursor.callproc('search_review_by_user', [user_id])
+        reviews = cursor.fetchall()
         
     return render(request, 'events/update_profile.html', context = {'form': form, 'reviews': reviews})
