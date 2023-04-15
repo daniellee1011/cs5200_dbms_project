@@ -145,8 +145,13 @@ def productdetail_name(request, name):
 def search_products(request):
     if request.method == "POST":
         searched = request.POST.get('searched')
-        products = Product.objects.filter(name__icontains = searched)
-        return render(request, "events/search_products.html", {'searched' : searched, 'products': products})
+
+        connection = connections['default']
+        with connection.cursor() as cursor:
+            cursor.callproc('search_product_by_name', [searched])
+            products = cursor.fetchall()
+
+        return render(request, "events/search_products.html", {'searched': searched, 'products': products})
     else:
         return render(request, "events/search_products.html")
 

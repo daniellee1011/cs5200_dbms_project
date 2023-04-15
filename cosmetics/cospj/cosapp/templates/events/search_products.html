@@ -1,7 +1,5 @@
 {% extends 'events/base.html' %}
 
-{% comment %} {% extends "users/login.html" %} {% endcomment %}
-
 {% block content %}
     {% if searched %}
         <h1> You searched for {{ searched }} </h1>
@@ -9,12 +7,12 @@
         <table class="table table-hover table-striped table-bordered">
         {% for product in products %}
             <tr>
-                <td><a href = "{% url 'productdetail' product.id %}">
-                {{ product.name }}</a><br/></td>
+                <td><a href = "{% url 'productdetail' product.0 %}">
+                {{ product.1 }}</a><br/></td>
             </tr>
         {% endfor %}
         </table>
     {% else %}
-        <h1> Hey! You forgot to search for a venue.. </h1>
+        <h1> Hey! You forgot to search for a product.. </h1>
     {% endif %}
 {% endblock %}
