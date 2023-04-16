@@ -52,3 +52,26 @@ CALL search_review_by_user(2);
 SELECT r.*, p.name FROM cosapp_userreview AS r
 	LEFT JOIN cosapp_product AS p ON r.product_id = p.id
 	WHERE user_id = 2;
+
+-- 4.
+DROP PROCEDURE IF EXISTS insert_product;
+DELIMITER $$
+CREATE PROCEDURE insert_product(productType_p VARCHAR(150), cosmeticBrand_p VARCHAR(150), name_p VARCHAR(150), price_p DECIMAL(10, 2), size_p VARCHAR(10), avgRating_p DECIMAL(10, 2), numReviews_p INT, ingredients_p LONGTEXT)
+BEGIN
+	DECLARE productType_id_p, cosmeticBrand_id_p BIGINT;
+
+    SELECT id INTO productType_id_p FROM cosapp_producttype WHERE typeName = productType_p;
+    SELECT id INTO cosmeticBrand_id_p FROM cosapp_cosmeticbrand WHERE brandName = cosmeticBrand_p;
+
+	INSERT INTO cosapp_product(
+		name, price, size, avgRating, numReviews, ingredients, productType_id, cosmeticBrand_id)
+		VALUES(name_p, price_p, size_p, avgRating_p, numReviews_p, ingredients_p, productType_id_p, cosmeticBrand_id_p);
+END $$
+DELIMITER ;
+
+SELECT * FROM cosapp_product;
+SELECT * FROM cosapp_producttype;
+SELECT * FROM cosapp_cosmeticbrand;
+INSERT INTO cosapp_product(
+		name, price, size, avgRating, numReviews, ingredients, productType_id, cosmeticBrand_id)
+		VALUES('cetaphil', 40.12, '19ml', 4.32, 0, 'moisturizing', 1, 1);

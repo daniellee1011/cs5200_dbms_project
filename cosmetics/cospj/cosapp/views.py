@@ -88,15 +88,26 @@ def addProduct(request):
         if check_superuser(request.user.username):
             if request.method == 'POST':
                 form = ProductForm(request.POST)
-                if form.is_valid():
 
-                        form.save()
-                        messages.success(request, "Product added.")
-                        return redirect('home')
-                    
+                if form.is_valid():
+                    print('addProduct: call MySQL insert_product procedure')
+                    connection = connections['default']
+                    with connection.cursor() as cursor:
+                        cursor.callproc('insert_product',[
+                            form.cleaned_data['productType'],
+                            form.cleaned_data['cosmeticBrand'],
+                            form.cleaned_data['name'],
+                            form.cleaned_data['price'],
+                            form.cleaned_data['size'],
+                            0, # avgRating has default value of 0, so don't need to inclue it in the form data
+                            0,
+                            form.cleaned_data['ingredients']
+                        ])
+                    messages.success(request, "Product added.")
+                    return redirect('home')
 
             form = ProductForm()
-    
+
             return render(request, 'addproduct.html', {'form':form})
 
 def editProduct(request, id):
