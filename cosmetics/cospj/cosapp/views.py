@@ -75,9 +75,17 @@ def editReview(request, product_id, userreview_id):
 
             return render(request, 'addreview.html', {'form':form})
 
+def check_superuser(username):
+    print('check_superuser: call MySQL check_superuser function')
+    connection = connections['default']
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT check_superuser(%s)', [username])
+        is_superuser = cursor.fetchone()[0]
+    return is_superuser
+
 def addProduct(request):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if check_superuser(request.user.username):
             if request.method == 'POST':
                 form = ProductForm(request.POST)
                 if form.is_valid():
@@ -93,7 +101,7 @@ def addProduct(request):
 
 def editProduct(request, id):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if check_superuser(request.user.username):
             product = Product.objects.get(id = id)
             if request.method == 'POST':
                             
@@ -116,7 +124,7 @@ def editProduct(request, id):
     
 def deleteProduct(request, id):
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if check_superuser(request.user.username):
             product = Product.objects.get(id = id)
 
             product.delete()
