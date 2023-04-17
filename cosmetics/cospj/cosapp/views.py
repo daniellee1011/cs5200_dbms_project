@@ -69,7 +69,15 @@ def editReview(request, product_id, userreview_id):
                 form = UserReviewForm(request.POST, instance=review)
                
                 if form.is_valid():
-                  
+                    print('editReview: call MySQL edit_review procedure')
+                    connection = connections['default']
+                    with connection.cursor() as cursor:
+                        cursor.callproc('edit_review',[
+                        review.id,
+                        form.cleaned_data['stars'],
+                        form.cleaned_data['description']
+                    ])
+
                     form.save()
                     messages.success(request, "Review edited.")
                     return redirect('productdetail', product_id)

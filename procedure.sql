@@ -122,3 +122,20 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- 8.
+DROP PROCEDURE IF EXISTS edit_review;
+DELIMITER $$
+CREATE PROCEDURE edit_review(reviewId_p BIGINT, stars_p INT, description_p LONGTEXT)
+BEGIN
+
+	UPDATE cosapp_userreview
+	SET
+	date = NOW(),
+	stars = stars_p,
+	description = description_p
+	WHERE
+	id = reviewId_p;
+
+END $$
+DELIMITER ;
