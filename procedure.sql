@@ -139,3 +139,14 @@ BEGIN
 
 END $$
 DELIMITER ;
+
+-- 9.
+DROP PROCEDURE IF EXISTS delete_review;
+DELIMITER $$
+CREATE PROCEDURE delete_review(reviewId_p BIGINT)
+BEGIN
+
+	DELETE FROM cosapp_userreview WHERE id = reviewId_p;
+
+END $$
+DELIMITER ;

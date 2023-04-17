@@ -52,7 +52,10 @@ def deleteReview(request, product_id, userreview_id):
         product = Product.objects.get(id = product_id)
         review = UserReview.objects.get(product = product, id = userreview_id)
         if request.user == review.user:
-            review.delete()
+            print('deleteReview: call MySQL delete_review procedure')
+            connection = connections['default']
+            with connection.cursor() as cursor:
+                cursor.callproc('delete_review', [review.id])
             messages.success(request, "Review deleted.")
         return redirect('productdetail', product_id)
     else:
