@@ -147,8 +147,10 @@ def deleteProduct(request, id):
     if request.user.is_authenticated:
         if check_superuser(request.user.username):
             product = Product.objects.get(id = id)
-
-            product.delete()
+            print('deleteProduct: call MySQL delete_product procedure')
+            connection = connections['default']
+            with connection.cursor() as cursor:
+                cursor.callproc('delete_product', [product.id])
             messages.success(request, "Product deleted.")
             return redirect('home')
     
