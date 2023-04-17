@@ -75,3 +75,27 @@ SELECT * FROM cosapp_cosmeticbrand;
 INSERT INTO cosapp_product(
 		name, price, size, avgRating, numReviews, ingredients, productType_id, cosmeticBrand_id)
 		VALUES('cetaphil', 40.12, '19ml', 4.32, 0, 'moisturizing', 1, 1);
+
+-- 5.
+DROP PROCEDURE IF EXISTS edit_product;
+DELIMITER $$
+CREATE PROCEDURE edit_product(productId_p BIGINT, productType_p VARCHAR(150), cosmeticBrand_p VARCHAR(150), name_p VARCHAR(150), price_p DECIMAL(10, 2), size_p VARCHAR(10), ingredients_p LONGTEXT)
+BEGIN
+	DECLARE productType_id_p, cosmeticBrand_id_p BIGINT;
+
+    SELECT id INTO productType_id_p FROM cosapp_producttype WHERE typeName = productType_p;
+    SELECT id INTO cosmeticBrand_id_p FROM cosapp_cosmeticbrand WHERE brandName = cosmeticBrand_p;
+
+	UPDATE cosapp_product 
+	SET
+	productType_id = productType_id_p,
+	cosmeticBrand_id = cosmeticBrand_id_p,
+	name = name_p,
+	price = price_p,
+	size = size_p,
+	ingredients = ingredients_p
+	WHERE
+	id = productId_p; 
+
+END $$
+DELIMITER ;

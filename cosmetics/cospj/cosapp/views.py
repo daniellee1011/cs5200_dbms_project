@@ -119,8 +119,18 @@ def editProduct(request, id):
                 form = ProductForm(request.POST, instance=product)
                 messages.error(request, form.errors)
                 if form.is_valid():
-                
-                    form.save()
+                    print('editProduct: call MySQL edit_product procedure')
+                    connection = connections['default']
+                    with connection.cursor() as cursor:
+                        cursor.callproc('edit_product',[
+                            product.id,
+                            form.cleaned_data['productType'],
+                            form.cleaned_data['cosmeticBrand'],
+                            form.cleaned_data['name'],
+                            form.cleaned_data['price'],
+                            form.cleaned_data['size'],
+                            form.cleaned_data['ingredients']
+                        ])
                     messages.success(request, "Product edited.")
                     return redirect('productdetail', id)
                             
