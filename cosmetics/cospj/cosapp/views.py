@@ -23,14 +23,20 @@ def addReview(request, id):
             form = UserReviewForm(request.POST)
 
             if form.is_valid():
-                
+
                 if UserReview.objects.filter(user_id=current_user.id, product_id = product.id).exists():
+
                     return redirect('productdetail', id)
-               
-                stars = request.POST.get('stars')
-                description = request.POST.get('description')
-                review = UserReview(product_id=product.id, user_id=current_user.id, stars=stars, description=description)
-                review.save()
+                print('addReview: call MySQL add_review procedure')
+                connection = connections['default']
+                with connection.cursor() as cursor:
+                    cursor.callproc('add_review',[
+                        product.id,
+                        current_user.id,
+                        form.cleaned_data['stars'],
+                        form.cleaned_data['description']
+                    ])
+
                 messages.success(request, "Review added.")
                 return redirect('productdetail', id)
 

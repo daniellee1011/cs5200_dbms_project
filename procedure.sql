@@ -108,3 +108,17 @@ BEGIN
     DELETE FROM cosapp_product WHERE id = productId_p;
 END $$
 DELIMITER ;
+
+-- 7.
+DROP PROCEDURE IF EXISTS add_review;
+DELIMITER $$
+CREATE PROCEDURE add_review(productId_p BIGINT, userid_p BIGINT, stars_p INT, description_p LONGTEXT)
+BEGIN
+	
+	INSERT INTO cosapp_userreview(
+		product_id, user_id, date, stars, description)
+		VALUES(productId_p, userid_p, NOW(), stars_p, description_p);
+
+END $$
+
+DELIMITER ;
