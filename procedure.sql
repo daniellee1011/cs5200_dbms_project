@@ -104,6 +104,7 @@ DROP PROCEDURE IF EXISTS delete_product;
 DELIMITER $$
 CREATE PROCEDURE delete_product(productId_p BIGINT)
 BEGIN
+	DELETE FROM cosapp_store_products WHERE product_id = productId_p;
     DELETE FROM cosapp_product WHERE id = productId_p;
 END $$
 DELIMITER ;
