@@ -53,11 +53,11 @@
               <div class="card border-dark mb-3" style="margin-top: 10px;">
               {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ review.user }} {{review.stars}}                    
+                    <h5 class="card-title">{{ review.user }} </h5>                    
                       <h8 style="float: right">
                         <small class="text-muted">{{ review.date }}</small>
                       </h8>
-                    </h5>
+                      <div>Rating: {{review.stars}}</div>  
                     <div>
                       {{ review.description }} 
                     </div>

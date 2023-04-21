@@ -108,6 +108,7 @@ def addProduct(request):
 
                 if form.is_valid():
                     print('addProduct: call MySQL insert_product procedure')
+                    storeList = ','.join(str(i) for i in form.cleaned_data['stores'])
                     connection = connections['default']
                     with connection.cursor() as cursor:
                         cursor.callproc('insert_product',[
@@ -118,7 +119,8 @@ def addProduct(request):
                             form.cleaned_data['size'],
                             0, # avgRating has default value of 0, so don't need to inclue it in the form data
                             0,
-                            form.cleaned_data['ingredients']
+                            form.cleaned_data['ingredients'],
+                            storeList
                         ])
                     messages.success(request, "Product added.")
                     return redirect('home')
