@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'bootstrap5',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -79,11 +83,11 @@ WSGI_APPLICATION = 'cospj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cosmetics',
         'USER': 'root',
         'PASSWORD': '0000',
-        'HOST': 'localhost',   
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
