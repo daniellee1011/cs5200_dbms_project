@@ -2,18 +2,22 @@ from django.db import models
 from users.models import User
 from django.utils import timezone
 
+
 class ProductCategory(models.Model):
     cateName = models.CharField(max_length=50)
 
     def __str__(self):
         return self.cateName
 
+
 class ProductType(models.Model):
-    productCategory = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    productCategory = models.ForeignKey(
+        ProductCategory, on_delete=models.CASCADE)
     typeName = models.CharField(max_length=50)
 
     def __str__(self):
         return self.typeName
+
 
 class CosmeticCompany(models.Model):
     companyName = models.CharField(max_length=50)
@@ -22,13 +26,16 @@ class CosmeticCompany(models.Model):
     def __str__(self):
         return self.companyName
 
+
 class CosmeticBrand(models.Model):
-    cosmeticCompany = models.ForeignKey(CosmeticCompany, on_delete=models.CASCADE)
+    cosmeticCompany = models.ForeignKey(
+        CosmeticCompany, on_delete=models.CASCADE)
     brandName = models.CharField(max_length=50)
     priceRange = models.CharField(max_length=30)
 
     def __str__(self):
         return self.brandName
+
 
 class Product(models.Model):
     productType = models.ForeignKey(ProductType, on_delete=models.CASCADE)
@@ -39,6 +46,8 @@ class Product(models.Model):
     avgRating = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     numReviews = models.IntegerField(default=0)
     ingredients = models.TextField()
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+
 
 class Store(models.Model):
     storeName = models.CharField(max_length=100)
@@ -50,16 +59,17 @@ class Store(models.Model):
     def __str__(self):
         return self.storeName
 
+
 class UserReview(models.Model):
-    product = models.ForeignKey(Product, on_delete = models.CASCADE)
-    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     ratingOption = (
-        (1,1),
-        (2,2),
-        (3,3),
-        (4,4),
-        (5,5)
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5)
     )
     stars = models.IntegerField(choices=ratingOption)
     description = models.TextField()
